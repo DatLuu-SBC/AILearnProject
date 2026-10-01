@@ -1,0 +1,75 @@
+﻿@page "/aichat"
+@inject AIToolsContextContainer AIToolsContextContainer
+@inject SemanticSearch Search
+<PageTitle>AI Chat</PageTitle>
+
+<h1>AI Chat</h1>
+
+@*  Demo AI services are rate limited and intended for demonstration purposes only.
+    DevExpress does not offer a REST API and does not ship any built-in LLMs/SLMs.
+    Use of demo credentials in production is strictly prohibited.
+    Specify the Azure OpenAI endpoint, key, and deployment name in the 'appsettings.json' file. *@
+<DxAIChat AllowResizeInput="true"
+          FileUploadEnabled="false"
+          IncludeFunctionCallInfo="true"
+          Initialized="ChatInitialized"
+          UseStreaming="true"
+          CssClass="h-100 overflow-hidden">
+    <AIChatSettings>
+        <DxAIChatFileUploadSettings MaxFileCount="2"
+                                    MaxFileSize="20000"
+                                    AllowedFileExtensions="@(new List<string> { ".jpg", ".pdf" })"
+                                    FileTypeFilter="@(new List<string> { "image/*", "application/pdf"})" />
+    </AIChatSettings>
+</DxAIChat>
+
+@code {
+    // private const string SystemPrompt = @"
+    //     You are an assistant who answers questions about information you retrieve.
+    //     Do not answer questions about anything else.
+    //     Use only simple markdown to format your responses.
+
+    //     Use the LoadDocuments tool to prepare for searches before answering any questions.
+
+    //     Use the Search tool to find relevant information. When you do this, end your
+    //     reply with citations in the special XML format:
+
+    //     <citation filename='string'>exact quote here</citation>
+
+    //     Always include the citation in your response if there are results.
+
+    //     The quote must be max 5 words, taken word-for-word from the search result, and is the basis for why the citation is relevant.
+    //     Don't refer to the presence of citations; just emit these tags right at the end, with no surrounding text.
+    //     ";
+    private const string SystemPrompt = @"
+        You are an assistant who answers questions about information you retrieve.
+        Do not answer questions about anything else.
+        Use only simple markdown to format your responses.
+
+        Use the Search tool to find relevant information.
+
+        Just say I dont have this information if you cannot find it in the search results.
+        ";
+
+    void ChatInitialized(IAIChat chat) {
+        var context = new AIToolsContextBuilder()
+            .WithToolMethods(SearchAsync)
+            .Build();
+        AIToolsContextContainer.Add(context);
+
+        chat.LoadMessages([
+            new BlazorChatMessage(Microsoft.Extensions.AI.ChatRole.System, SystemPrompt)
+        ]);
+    }
+
+    [Description("Searche tool for information using a phrase or keyword.")]
+    private async Task<IEnumerable<string>> SearchAsync(
+        [Description("The phrase to search for.")] string searchPhrase,
+        [Description("If possible, specify the filename to search that file only. If not provided or empty, the search includes all files.")] string? filenameFilter = null)
+    {
+        await InvokeAsync(StateHasChanged);
+        var results = await Search.SearchAsync(searchPhrase, filenameFilter, maxResults: 5);
+        return results.Select(result =>
+            $"<result filename=\"{result.DocumentId}\">{result.Text}</result>");
+    }
+}

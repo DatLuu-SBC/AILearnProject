@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\I9878\.nuget\packages\;C:\Program Files\DevExpress 24.1\Components\Offline Packages;C:\Program Files\DevExpress 25.2\Components\Offline Packages;C:\Program Files\DevExpress 26.1\Components\Offline Packages;C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">7.0.0</NuGetToolVersion>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <SourceRoot Include="C:\Users\I9878\.nuget\packages\" />
+    <SourceRoot Include="C:\Program Files\DevExpress 24.1\Components\Offline Packages\" />
+    <SourceRoot Include="C:\Program Files\DevExpress 25.2\Components\Offline Packages\" />
+    <SourceRoot Include="C:\Program Files\DevExpress 26.1\Components\Offline Packages\" />
+    <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
+  </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.app.internal.assets\10.0.9\build\Microsoft.AspNetCore.App.Internal.Assets.props" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.app.internal.assets\10.0.9\build\Microsoft.AspNetCore.App.Internal.Assets.props')" />
+    <Import Project="$(NuGetPackageRoot)devexpress.images.blazor\26.1.5-pre-26248\buildTransitive\DevExpress.Images.Blazor.props" Condition="Exists('$(NuGetPackageRoot)devexpress.images.blazor\26.1.5-pre-26248\buildTransitive\DevExpress.Images.Blazor.props')" />
+    <Import Project="$(NuGetPackageRoot)devexpress.blazor.themes.fluent\26.1.5-pre-26248\buildTransitive\DevExpress.Blazor.Themes.Fluent.props" Condition="Exists('$(NuGetPackageRoot)devexpress.blazor.themes.fluent\26.1.5-pre-26248\buildTransitive\DevExpress.Blazor.Themes.Fluent.props')" />
+    <Import Project="$(NuGetPackageRoot)devexpress.blazor.themes\26.1.5-pre-26248\buildTransitive\DevExpress.Blazor.Themes.props" Condition="Exists('$(NuGetPackageRoot)devexpress.blazor.themes\26.1.5-pre-26248\buildTransitive\DevExpress.Blazor.Themes.props')" />
+    <Import Project="$(NuGetPackageRoot)devexpress.blazor.resources\26.1.5-pre-26248\buildTransitive\DevExpress.Blazor.Resources.props" Condition="Exists('$(NuGetPackageRoot)devexpress.blazor.resources\26.1.5-pre-26248\buildTransitive\DevExpress.Blazor.Resources.props')" />
+    <Import Project="$(NuGetPackageRoot)devexpress.blazor\26.1.5-pre-26248\buildTransitive\net5.0\DevExpress.Blazor.props" Condition="Exists('$(NuGetPackageRoot)devexpress.blazor\26.1.5-pre-26248\buildTransitive\net5.0\DevExpress.Blazor.props')" />
+    <Import Project="$(NuGetPackageRoot)devexpress.blazor.richedit\26.1.5-pre-26248\buildTransitive\DevExpress.Blazor.RichEdit.props" Condition="Exists('$(NuGetPackageRoot)devexpress.blazor.richedit\26.1.5-pre-26248\buildTransitive\DevExpress.Blazor.RichEdit.props')" />
+  </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgDevExpress_Data Condition=" '$(PkgDevExpress_Data)' == '' ">C:\Users\I9878\.nuget\packages\devexpress.data\26.1.5-pre-26248</PkgDevExpress_Data>
+  </PropertyGroup>
+</Project>

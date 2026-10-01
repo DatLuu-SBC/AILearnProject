@@ -1,0 +1,15 @@
+﻿global using DevExpressAIChatTemplate1.Services;
+global using DevExpressAIChatTemplate1.Services.Ingestion;
+global using System.Text.Json.Serialization;
+global using System.ComponentModel;
+global using Microsoft.Extensions.VectorData;
+global using Microsoft.Extensions.DataIngestion;
+global using Microsoft.Extensions.AI;
+global using Microsoft.Extensions.DataIngestion.Chunkers;
+global using Microsoft.ML.Tokenizers;
+global using UglyToad.PdfPig;
+global using UglyToad.PdfPig.Content;
+global using UglyToad.PdfPig.DocumentLayoutAnalysis.PageSegmenter;
+global using UglyToad.PdfPig.DocumentLayoutAnalysis.WordExtractor;
+global using DevExpress.AIIntegration;
+global using DevExpress.AIIntegration.Tools;

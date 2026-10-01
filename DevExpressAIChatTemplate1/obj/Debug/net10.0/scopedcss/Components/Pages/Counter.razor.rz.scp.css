@@ -1,0 +1,25 @@
+.counter-block[b-5dy9fmwzhc] {
+    align-items: center;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 17rem;
+    justify-content: center;
+    padding: 2.5rem 1.5rem 1.5rem;
+    width: 16.875rem;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+.counter-block .counter-content[b-5dy9fmwzhc] {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.counter-block .counter-count[b-5dy9fmwzhc] {
+    font-size: 7.5rem;
+    font-weight: 400;
+    line-height: 7.75rem;
+}

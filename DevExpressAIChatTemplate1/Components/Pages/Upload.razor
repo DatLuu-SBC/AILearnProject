@@ -1,0 +1,79 @@
+﻿@page "/upload"
+@using DevExpressAIChatTemplate1.Services
+@inject FileIngestionService IngestionService
+@inject SemanticSearch Search
+<PageTitle>Upload Document</PageTitle>
+
+<h1>Upload Document</h1>
+
+<div id="overviewDemoDropZone" class="card custom-drop-zone rounded-3 w-100 m-0">
+    <span class="drop-file-icon mb-3"></span>
+    <span class="drop-file-label">Drag and Drop File Here</span><span class="m-1">or</span>
+    <DxButton Id="overviewDemoSelectButton"
+              CssClass="m-1"
+              Enabled="@(!Search._isIngesting)"
+              RenderStyle="ButtonRenderStyle.Primary"
+              Text="Select File" />
+</div>
+<DxFileInput Visible="@UploadVisible"
+             ExternalSelectButtonCssSelector="#overviewDemoSelectButton"
+             ExternalDropZoneCssSelector="#overviewDemoDropZone"
+             ExternalDropZoneDragOverCssClass="custom-drop-zone-hover"
+             MaxFileSize="15000000"
+             AllowedFileExtensions="@(new List<string> { ".pdf", ".doc", ".docx", ".md" })"
+             FilesUploading="OnFilesUploading"
+             SelectedFilesChanged="@SelectedFilesChanged">
+</DxFileInput>
+<p class="mt-3 text-muted">@statusText</p>
+<div class="upload-validation-text info-text">
+    Uploads are limited to a single file up to 10 MB.
+</div>
+
+<h1>Or Click to load the ready uploaded documents</h1>
+
+<div>
+    <DxButton Id="clickToLoadButton"
+              CssClass="m-1"
+              Enabled="@(!Search._isIngesting)"
+              RenderStyle="ButtonRenderStyle.Primary"
+              Text="Load Sample Documents"
+              Click="OnLoadSampleDocumentsClick" />
+</div>
+
+@code {
+    bool UploadVisible { get; set; } = false;
+    private string statusText = "Drag or select a document to start upload.";
+    protected void SelectedFilesChanged(IEnumerable<UploadFileInfo> files)
+    {
+        UploadVisible = files.ToList().Count > 0;
+        InvokeAsync(StateHasChanged);
+    }
+    protected async Task OnFilesUploading(FilesUploadingEventArgs e)
+    {
+        // Cancel default browser behavior if needed, we will process manually
+        statusText = "Streaming data over WebSocket...";
+
+        foreach (var file in e.Files)
+        {
+            try
+            {
+                // Open a secure stream straight through the websocket connection
+                // 10MB limit matching your max configuration
+                using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+
+                // Directly pass it to your processing/SQLite service!
+                await IngestionService.IngestDocumentAsync(file.Name, stream);
+
+                statusText = $"Successfully processed {file.Name} into SQLite!";
+            }
+            catch (Exception ex)
+            {
+                statusText = $"Error uploading {file.Name}: {ex.Message}";
+            }
+        }
+    }
+    protected async Task OnLoadSampleDocumentsClick(MouseEventArgs args)
+    {
+        await Search.LoadDocumentsAsync();
+    }
+}

@@ -1,0 +1,20 @@
+[b-1uhqekqig3] .menu {
+    --dxbl-menu-bottom-left-border-radius: 0;
+    --dxbl-menu-bottom-right-border-radius: 0;
+    --dxbl-menu-top-left-border-radius: 0;
+    --dxbl-menu-top-right-border-radius: 0;
+    --dxbl-menu-item-padding-x: 1.125rem;
+    --dxbl-menu-item-padding-y: 0.5rem;
+    --dxbl-menu-color: var(--bs-white);
+    --dxbl-menu-item-hover-color: var(--bs-white);
+
+    background: none;
+}
+
+[b-1uhqekqig3] .menu.display-mobile {
+    margin-bottom: 2rem;
+}
+
+[b-1uhqekqig3] .menu-item-active {
+    background-color: rgb(from var(--bs-white) r g b / 0.10);
+}
